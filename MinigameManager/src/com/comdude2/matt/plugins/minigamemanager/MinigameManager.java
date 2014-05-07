@@ -9,7 +9,7 @@ public class MinigameManager extends JavaPlugin{
 	}
 	
 	public void onDisable(){
-		
+		String pie;
 	}
 	
 	
