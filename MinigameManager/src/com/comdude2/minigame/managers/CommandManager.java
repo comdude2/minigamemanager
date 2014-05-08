@@ -33,7 +33,7 @@ private ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
 		if (cmd.getName().equalsIgnoreCase("mm")) {
 			if (args.length == 0) {
 				for (SubCommand c : commands) {
-					MessageManager.getInstance().info("Minigame", player, "/snowfight " + c.name() + " (" + aliases(c) + ")" + " - " + c.info());
+					MessageManager.getInstance().info("Minigame", player, "/snowfight " + c.name() + " - " + c.info());
 				}
 				return true;
 			}

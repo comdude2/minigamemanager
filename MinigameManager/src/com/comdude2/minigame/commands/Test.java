@@ -2,15 +2,11 @@ package com.comdude2.minigame.commands;
 
 import org.bukkit.entity.Player;
 
-import com.avaje.ebeaninternal.server.cluster.mcast.Message;
-import com.comdude2.minigame.managers.MessageManager;
-
 public class Test extends SubCommand {
 
 	@Override
 	public void onCommand(Player p, String[] args) {
-		MessageManager.getInstance().good("Test", p, "The command manager is working");
-		
+		System.out.println("Test Command called");
 	}
 
 	@Override
