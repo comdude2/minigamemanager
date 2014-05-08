@@ -8,6 +8,7 @@ public class MinigameController {
 	
 	public MinigameController(Plugin mplugin){
 		plugin = mplugin;
+		String test;
 	}
 	
 }
