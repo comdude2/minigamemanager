@@ -3,12 +3,12 @@ package com.comdude2.matt.plugins.minigamemanager;
 public class Arena {
 
 	private String name;
-	private String event;
+	private String minigame;
 	private boolean inUse;
 	
-	public Arena(String mname, String mevent){
+	public Arena(String mname, String mminigame){
 		name = mname;
-		event = mevent;
+		minigame = mminigame;
 		inUse = false;
 	}
 	
@@ -16,8 +16,8 @@ public class Arena {
 		return name;
 	}
 	
-	public String getEvent(){
-		return event;
+	public String getMinigame(){
+		return minigame;
 	}
 	
 	public boolean inUse(){

@@ -1,5 +1,8 @@
 package com.comdude2.matt.plugins.minigamemanager;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.bukkit.plugin.Plugin;
 
 public class MinigameController {
@@ -7,6 +10,8 @@ public class MinigameController {
 	protected Plugin plugin;
 	protected CommandManager commandmanager;
 	protected MessageManager messagemanager;
+	@SuppressWarnings("unused")
+	private List <Minigame> minigames = new LinkedList <Minigame> ();
 	
 	public MinigameController(Plugin mplugin){
 		plugin = mplugin;
@@ -14,7 +19,7 @@ public class MinigameController {
 		messagemanager = new MessageManager();
 	}
 	
-	public void ScheduleMinigame(String minigame, Long delay, Long repeat){
+	public void registerMinigame(Minigame minigame){
 		
 	}
 	
