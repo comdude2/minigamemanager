@@ -8,7 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.comdude2.commands.SubCommand;
+import com.comdude2.minigame.commands.SubCommand;
+import com.comdude2.minigame.commands.Test;
 
 
 
@@ -17,7 +18,7 @@ public class CommandManager implements CommandExecutor{
 private ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
 	
 	public void setup() {
-
+		commands.add(new Test());
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {

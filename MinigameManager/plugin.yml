@@ -1,5 +1,5 @@
 name: MinigameManager
-main: com.comdude2.matt.plugins.minigamemanager.ServerProtector
+main: com.comdude2.minigame.managers.MinigameManager
 version: 1.0
 author: comdude2, daawsomest
 commands:

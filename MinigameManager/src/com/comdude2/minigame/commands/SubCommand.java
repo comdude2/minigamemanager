@@ -1,4 +1,4 @@
-package com.comdude2.commands;
+package com.comdude2.minigame.commands;
 
 import org.bukkit.entity.Player;
 
