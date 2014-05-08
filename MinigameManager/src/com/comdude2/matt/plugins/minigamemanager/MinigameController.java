@@ -14,4 +14,8 @@ public class MinigameController {
 		messagemanager = new MessageManager();
 	}
 	
+	public void ScheduleMinigame(String minigame, Long delay, Long repeat){
+		
+	}
+	
 }
