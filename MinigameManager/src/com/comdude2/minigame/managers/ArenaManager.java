@@ -7,12 +7,15 @@ import com.comdude2.minigame.main.Arena;
 
 public class ArenaManager {
 
+	private MinigameController minicontroller;
 	private List <Arena> arenas = new LinkedList <Arena> ();
 	
-	public ArenaManager(){
-		
+	public ArenaManager(MinigameController mminicontroller){
+		minicontroller = mminicontroller;
 	}
 	
-	public void 
+	public Arena getArena(Integer arenaid){
+		return null;
+	}
 	
 }
