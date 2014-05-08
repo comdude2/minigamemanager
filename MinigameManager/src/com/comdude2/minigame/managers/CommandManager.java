@@ -33,7 +33,7 @@ private ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
 		if (cmd.getName().equalsIgnoreCase("mm")) {
 			if (args.length == 0) {
 				for (SubCommand c : commands) {
-					MessageManager.getInstance().info("Minigame", player, "/snowfight " + c.name() + " - " + c.info());
+					MessageManager.getInstance().info("Minigame", player, "/mm " + c.name() + " - " + c.info());
 				}
 				return true;
 			}
@@ -41,7 +41,7 @@ private ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
 			SubCommand target = get(args[0]);
 			
 			if (target == null) {
-				MessageManager.getInstance().error("Minigame", player, "/snowfight " + args[0] + " is not a valid subcommand!");
+				MessageManager.getInstance().error("Minigame", player, "/mm " + args[0] + " is not a valid subcommand!");
 				return true;
 			}
 			
