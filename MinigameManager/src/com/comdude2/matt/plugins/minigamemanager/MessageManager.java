@@ -7,7 +7,7 @@ public class MessageManager {
 	
 	private String name;
 
-	private MessageManager() { }
+	public MessageManager() { }
 	
 	private static MessageManager instance = new MessageManager();
 	
