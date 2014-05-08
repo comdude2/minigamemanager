@@ -11,8 +11,6 @@ import org.bukkit.entity.Player;
 import com.comdude2.minigame.commands.SubCommand;
 import com.comdude2.minigame.commands.Test;
 
-
-
 public class CommandManager implements CommandExecutor{
 
 private ArrayList<SubCommand> commands = new ArrayList<SubCommand>();
