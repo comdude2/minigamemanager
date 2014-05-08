@@ -8,7 +8,7 @@ public class MinigameManager extends JavaPlugin{
 	
 	protected CommandManager commandmanager;
 	
-	//Private and not protected to prevent unauthorised usage (stops outside plugins interfacing)
+	//Private and not protected to prevent unauthorized usage (stops outside plugins interfacing)
 	@SuppressWarnings("unused")
 	private MinigameController minicontroller;
 	
