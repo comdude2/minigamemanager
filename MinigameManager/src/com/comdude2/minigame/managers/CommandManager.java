@@ -1,4 +1,4 @@
-package com.comdude2.matt.plugins.minigamemanager;
+package com.comdude2.minigame.managers;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

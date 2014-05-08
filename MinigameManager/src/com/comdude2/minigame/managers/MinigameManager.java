@@ -1,6 +1,8 @@
-package com.comdude2.matt.plugins.minigamemanager;
+package com.comdude2.minigame.managers;
 
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.comdude2.minigame.main.MinigameController;
 
 public class MinigameManager extends JavaPlugin{
 	

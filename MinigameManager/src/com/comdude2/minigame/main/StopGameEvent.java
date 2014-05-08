@@ -1,4 +1,4 @@
-package com.comdude2.matt.plugins.minigamemanager;
+package com.comdude2.minigame.main;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

@@ -1,9 +1,12 @@
-package com.comdude2.matt.plugins.minigamemanager;
+package com.comdude2.minigame.main;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import org.bukkit.plugin.Plugin;
+
+import com.comdude2.minigame.managers.CommandManager;
+import com.comdude2.minigame.managers.MessageManager;
 
 public class MinigameController {
 
