@@ -2,6 +2,8 @@ package com.comdude2.minigame.managers;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.comdude2.minigames.games.Paintball;
+
 public class MinigameManager extends JavaPlugin{
 	
 	protected CommandManager commandmanager;
@@ -16,6 +18,8 @@ public class MinigameManager extends JavaPlugin{
 		
 		commandmanager.setup();
 		getCommand("mm").setExecutor(commandmanager);
+		
+		getServer().getPluginManager().registerEvents(new Paintball(), this);
 		
 	}
 	
