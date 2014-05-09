@@ -19,7 +19,7 @@ public class MinigameManager extends JavaPlugin{
 		commandmanager.setup();
 		getCommand("mm").setExecutor(commandmanager);
 		
-		getServer().getPluginManager().registerEvents(new Paintball(), this);
+		getServer().getPluginManager().registerEvents(new Paintball(minicontroller), this);
 		
 	}
 	

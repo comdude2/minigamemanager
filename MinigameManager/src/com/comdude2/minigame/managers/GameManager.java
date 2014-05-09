@@ -1,6 +1,7 @@
 package com.comdude2.minigame.managers;
 
 import java.util.LinkedList;
+import java.util.UUID;
 
 import com.comdude2.minigame.main.Arena;
 import com.comdude2.minigame.main.Game;
@@ -18,6 +19,28 @@ public class GameManager {
 		for (Game game : games){
 			if (game.getID() == gameid){
 				return minicontroller.arenamanager.getArena(game.getArenaID());
+			}
+		}
+		return null;
+	}
+	
+	public void newGame(){
+		
+	}
+	
+	public boolean playerInGame(UUID uuid){
+		for (Game game : games){
+			if (game.getPlayers().contains(uuid)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Game getGame(UUID uuid){
+		for (Game game : games){
+			if (game.getPlayers().contains(uuid)){
+				return game;
 			}
 		}
 		return null;

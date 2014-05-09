@@ -28,4 +28,16 @@ public class MinigameController {
 		
 	}
 	
+	public GameManager getGameManager(){
+		return gamemanager;
+	}
+	
+	public ArenaManager getArenaManager(){
+		return arenamanager;
+	}
+	
+	public MessageManager getMessageManager(){
+		return messagemanager;
+	}
+	
 }

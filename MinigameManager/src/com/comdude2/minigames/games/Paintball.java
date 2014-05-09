@@ -22,7 +22,10 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
+
+import com.comdude2.minigame.main.Game;
 import com.comdude2.minigame.main.Minigame;
+import com.comdude2.minigame.managers.MinigameController;
 
 
 
@@ -30,14 +33,15 @@ import com.comdude2.minigame.main.Minigame;
 public class Paintball extends Minigame implements Listener {
 
 	private float damage = 5;
-	
+	private Integer gameid;
 	private ScoreboardManager scoreboardManager;
 	private static Scoreboard scoreboard;
 	private Objective objective;
 	private Score score;
+	private MinigameController minicontroller;
 	
 	@SuppressWarnings("deprecation")
-	public Paintball() {
+	public Paintball(MinigameController mminicontroller) {
 		scoreboardManager = Bukkit.getScoreboardManager();
 		scoreboard = scoreboardManager.getNewScoreboard();
 		objective = scoreboard.registerNewObjective("Your Kills", "mobkills");
@@ -66,8 +70,17 @@ public class Paintball extends Minigame implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onSnowballThrown(PlayerInteractEvent event) {
-		//CHECK IF PLAYER IS IN PAINTBALL ARENA
-		if (true) {
+		//CHECK IF PLAYER IS IN PAINTBALL ARENA - Done - com
+		boolean inArena = false;
+		if (minicontroller.getGameManager().playerInGame(event.getPlayer().getUniqueId())){
+			Game game = minicontroller.getGameManager().getGame(event.getPlayer().getUniqueId());
+			if (game != null){
+				if (minicontroller.getArenaManager().getArena(game.getArenaID()).getMinigame().equals("PAINTBALL")){
+					inArena = true;
+				}
+			}
+		}
+		if (inArena) {
 			if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 				if (event.getItem().getType().equals(Material.BOW)) {
 					event.setCancelled(true);
@@ -83,11 +96,22 @@ public class Paintball extends Minigame implements Listener {
 
 	@EventHandler
 	public void onSnowballHit(EntityDamageByEntityEvent event) {
-		//CHECK IF PLAYER IS IN PAINTBALL ARENA
-		if (true) {
-			if (event.getDamager() instanceof Snowball) {
-				Player player = (Player) event.getEntity();
-				player.damage(damage);
+		//CHECK IF PLAYER IS IN PAINTBALL ARENA - Done - com
+		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player){
+			boolean inArena = false;
+			if (minicontroller.getGameManager().playerInGame(player.getUniqueId())){
+				Game game = minicontroller.getGameManager().getGame(player.getUniqueId());
+				if (game != null){
+					if (minicontroller.getArenaManager().getArena(game.getArenaID()).getMinigame().equals("PAINTBALL")){
+						inArena = true;
+					}
+				}
+			}
+			if (inArena) {
+				if (event.getDamager() instanceof Snowball) {
+					Player player = (Player) event.getEntity();
+					player.damage(damage);
+				}
 			}
 		}
 	}
