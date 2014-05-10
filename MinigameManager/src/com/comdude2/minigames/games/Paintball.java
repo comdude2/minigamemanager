@@ -1,10 +1,16 @@
 package com.comdude2.minigames.games;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
+import org.apache.logging.log4j.core.config.plugins.PluginManager;
+import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Blue;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -13,7 +19,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -33,15 +41,19 @@ import com.comdude2.minigame.managers.MinigameController;
 public class Paintball extends Minigame implements Listener {
 
 	private float damage = 5;
-	private Integer gameid;
+	private int gameid;
 	private ScoreboardManager scoreboardManager;
 	private static Scoreboard scoreboard;
 	private Objective objective;
 	private Score score;
 	private MinigameController minicontroller;
 	
+	public enum Team {RED, BLUE};
+	
 	@SuppressWarnings("deprecation")
-	public Paintball(MinigameController mminicontroller) {
+	public Paintball(MinigameController minicontroller) {
+		this.minicontroller = minicontroller;
+		
 		scoreboardManager = Bukkit.getScoreboardManager();
 		scoreboard = scoreboardManager.getNewScoreboard();
 		objective = scoreboard.registerNewObjective("Your Kills", "mobkills");
@@ -67,11 +79,17 @@ public class Paintball extends Minigame implements Listener {
 		player.setScoreboard(scoreboard);
 	}
 
+	
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onSnowballThrown(PlayerInteractEvent event) {
-		//CHECK IF PLAYER IS IN PAINTBALL ARENA - Done - com
 		boolean inArena = false;
+		
+		//Used to avoid null exception
+		if(event.getPlayer().getItemInHand().getType() != Material.BOW || !inArena) {
+			return;
+		}
+		
 		if (minicontroller.getGameManager().playerInGame(event.getPlayer().getUniqueId())){
 			Game game = minicontroller.getGameManager().getGame(event.getPlayer().getUniqueId());
 			if (game != null){
@@ -80,6 +98,7 @@ public class Paintball extends Minigame implements Listener {
 				}
 			}
 		}
+		
 		if (inArena) {
 			if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 				if (event.getItem().getType().equals(Material.BOW)) {
@@ -90,6 +109,8 @@ public class Paintball extends Minigame implements Listener {
 					player.launchProjectile(Snowball.class);
 					player.playSound(player.getLocation(), Sound.FIREWORK_TWINKLE2, 10F, 10F);
 				}
+			} else {
+				return;
 			}
 		}
 	}
@@ -98,6 +119,7 @@ public class Paintball extends Minigame implements Listener {
 	public void onSnowballHit(EntityDamageByEntityEvent event) {
 		//CHECK IF PLAYER IS IN PAINTBALL ARENA - Done - com
 		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player){
+			Player player = (Player) event.getEntity();
 			boolean inArena = false;
 			if (minicontroller.getGameManager().playerInGame(player.getUniqueId())){
 				Game game = minicontroller.getGameManager().getGame(player.getUniqueId());
@@ -109,8 +131,47 @@ public class Paintball extends Minigame implements Listener {
 			}
 			if (inArena) {
 				if (event.getDamager() instanceof Snowball) {
-					Player player = (Player) event.getEntity();
 					player.damage(damage);
+					((Player) event.getDamager()).playSound(player.getLocation(), Sound.ITEM_PICKUP, 10F, 10F);
+					
+					if(player.isDead()) {
+						for(Player p : Bukkit.getOnlinePlayers()) {
+							if (minicontroller.getGameManager().playerInGame(p.getUniqueId())){
+								Game game = minicontroller.getGameManager().getGame(p.getUniqueId());
+								if (game != null){
+									if (minicontroller.getArenaManager().getArena(game.getArenaID()).getMinigame().equals("PAINTBALL")){
+										p.sendMessage( ChatColor.GRAY + player.getName() + " was splatted in paint by " + ((Player) event.getDamager()).getName());
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerDeath(PlayerDeathEvent event) {
+		Player player = event.getEntity();
+		
+		if(minicontroller.getGameManager().playerInGame(player.getUniqueId())) {
+			Game game = minicontroller.getGameManager().getGame(player.getUniqueId());
+			if(minicontroller.getArenaManager().getArena(game.getArenaID()).getMinigame().equals("PAINTBALL")) {
+				event.setDeathMessage("");
+			}
+		}
+	}
+	
+	@EventHandler
+	public void onPlayerRespawn(PlayerRespawnEvent event) {
+		Player player = event.getPlayer();
+		
+		if (minicontroller.getGameManager().playerInGame(player.getUniqueId())){
+			Game game = minicontroller.getGameManager().getGame(player.getUniqueId());
+			if (game != null){
+				if (minicontroller.getArenaManager().getArena(game.getArenaID()).getMinigame().equals("PAINTBALL")){
+					//TODO: RESPAWN AT TEAMS BASE
 				}
 			}
 		}
