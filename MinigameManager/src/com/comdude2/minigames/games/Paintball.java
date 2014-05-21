@@ -35,9 +35,6 @@ import com.comdude2.minigame.main.Game;
 import com.comdude2.minigame.main.Minigame;
 import com.comdude2.minigame.managers.MinigameController;
 
-
-
-
 public class Paintball extends Minigame implements Listener {
 
 	private float damage = 5;

@@ -8,7 +8,6 @@ public class MinigameManager extends JavaPlugin{
 	
 	protected CommandManager commandmanager;
 	
-	@SuppressWarnings("unused")
 	private MinigameController minicontroller;
 	
 	public void onEnable(){
